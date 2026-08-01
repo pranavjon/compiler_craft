@@ -20,3 +20,4 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/include)
 
 add_subdirectory(include/CC_ALG)
 add_subdirectory(lib/CC_ALG)
+add_subdirectory(tools)

@@ -30,5 +30,11 @@ mlir::LogicalResult MatMulOp::verify() {
   return mlir::success();
 }
 
+CC_Alg_Dialect::CC_Alg_Dialect(mlir::MLIRContext *context)
+    : mlir::Dialect(getDialectNamespace(), context,
+                    mlir::TypeID::get<CC_Alg_Dialect>()) {
+  initialize();
+}
+
 } // namespace cc_alg
 } // namespace mlir

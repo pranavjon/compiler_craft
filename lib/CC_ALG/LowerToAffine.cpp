@@ -119,3 +119,7 @@ std::unique_ptr<mlir::Pass> mlir::cc_alg::createLowerToAffinePass() {
   return std::make_unique<LowerToAffinePass>();
 }
 
+void mlir::cc_alg::registerLowerToAffinePass() {
+  mlir::PassRegistration<LowerToAffinePass>();
+}
+
