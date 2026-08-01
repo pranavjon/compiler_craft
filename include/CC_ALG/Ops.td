@@ -28,6 +28,7 @@ def MatMulOp : CC_ALG_Op<"matmul", [Pure]> {
     ```}];
     let arguments = (ins F64Tensor:$lhs, F64Tensor:$rhs);
     let results = (outs F64Tensor);
+    let assemblyFormat = "$lhs `,` $rhs attr-dict `:` functional-type(operands, results)";
     let builders = [OpBuilder< (ins "Value":$lhs, "Value":$rhs)>]; // tells MLIR how to construct your Op from C++ code.
     let hasVerifier = 1; // tells MLIR that i will write a C++ verify() for this Op.
 }
