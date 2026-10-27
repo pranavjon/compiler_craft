@@ -33,4 +33,29 @@ def MatMulOp : CC_ALG_Op<"matmul", [Pure]> {
     let hasVerifier = 1; // tells MLIR that i will write a C++ verify() for this Op.
 }
 
+def AddOp: CC_ALG_Op<"add", [Pure]> {
+    let summary = " Element wise Add operation ";
+    let description = [{
+        Performs Add operation on two tensors
+    }];
+
+    let arguments = (ins F64Tensor:$lhs, F64Tensor:$rhs);
+    let results = (outs F64Tensor);
+    let assemblyFormat = "$lhs `,` $rhs attr-dict `:` functional-type(operands, results)";
+    let builders = [OpBuilder< (ins "Value":$lhs, "Value":$rhs)>];
+    let hasVerifier = 1;
+}
+
+def ReluOp: CC_ALG_Op<"relu", [Pure]> {
+    let summary = " Relu activation operation";
+    let description = [{
+        Performs RELU activation operation on an input tensor
+    }];
+    let arguments = (ins F64Tensor:$input);
+    let results = (outs F64Tensor);
+    let assemblyFormat = "$input attr-dict `:` functional-type(operands, results)";
+    let builders = [OpBuilder< (ins "Value":$input)>];
+    let hasVerifier = 0; 
+}
+
 #endif // CC_ALG_OPS

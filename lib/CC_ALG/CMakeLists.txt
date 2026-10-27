@@ -14,4 +14,5 @@ add_mlir_library(CCALG
   MLIRMemRefDialect
   MLIRTransformUtils
   MLIRTransforms
+  MLIRBufferizationDialect
 )

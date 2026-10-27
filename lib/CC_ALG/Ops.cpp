@@ -11,7 +11,9 @@ namespace cc_alg {
 
 void CC_Alg_Dialect::initialize() {
   addOperations<
-    MatMulOp
+    MatMulOp,
+    AddOp,
+    ReluOp
   >();
 }
 
@@ -26,6 +28,22 @@ mlir::LogicalResult MatMulOp::verify() {
   if (lhsType.getDimSize(1) != rhsType.getDimSize(0))
     return emitOpError("inner dimensions must match: ")
            << lhsType.getDimSize(1) << " vs " << rhsType.getDimSize(0);
+
+  return mlir::success();
+}
+
+mlir::LogicalResult AddOp::verify() {
+  
+  auto lhsType = mlir::cast<mlir::RankedTensorType>(getLhs().getType());
+  auto rhsType = mlir::cast<mlir::RankedTensorType>(getRhs().getType());
+
+  if (lhsType.getRank() != rhsType.getRank())
+    return emitOpError("operands must have the same rank");
+
+  for (int i = 0; i < lhsType.getRank(); ++i) {
+    if (lhsType.getDimSize(i) != rhsType.getDimSize(i))
+      return emitOpError("operands must have the same shape");
+  }
 
   return mlir::success();
 }
